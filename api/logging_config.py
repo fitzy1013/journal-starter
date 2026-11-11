@@ -5,7 +5,6 @@ import logging
 
 def configure_logging(level: int = logging.INFO) -> None:
     """Configure application logging at the requested level, defaulting to INFO.
-
     TODO (Task 3):
       - Use logging.basicConfig() with the requested level and a format that
         includes the level, logger name, and message.
@@ -17,3 +16,8 @@ def configure_logging(level: int = logging.INFO) -> None:
     logging exercise runs entry operations at INFO and DEBUG to compare output.
     Never log journal text, settings objects, or credentials.
     """
+    logging.basicConfig(
+        level=level,
+        format="%(levelname)s:%(name)s:%(message)s",
+    )
+    logging.getLogger().setLevel(level)
