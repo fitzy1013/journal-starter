@@ -71,6 +71,10 @@ async def get_all_entries(entry_service: EntryServiceDependency) -> EntryListRes
 @router.get("/entries/{entry_id}")
 async def get_entry(entry_id: str, entry_service: EntryServiceDependency) -> Entry:
     """Get a journal entry by ID."""
+    result = await entry_service.get_entry(entry_id)
+    if result is None:
+        raise HTTPException(status_code=404, detail="Entry not found")
+    return result
     # TODO: Implement this endpoint to return a single journal entry by ID.
     #
     # Steps to implement:
