@@ -120,6 +120,10 @@ async def update_entry(
 @router.delete("/entries/{entry_id}")
 async def delete_entry(entry_id: str, entry_service: EntryServiceDependency) -> DetailResponse:
     """Delete a journal entry by ID."""
+    deleted = await entry_service.delete_entry(entry_id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Entry not found")
+    return DetailResponse(detail="Entry deleted successfully")
     # TODO: Implement this endpoint to delete a specific journal entry.
     #
     # Steps to implement:
